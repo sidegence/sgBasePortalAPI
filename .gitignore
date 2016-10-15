@@ -45,3 +45,16 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.exe
+*.cache
+*.dll
+*.pdb
+
+sgBasePortalAPI/bin
+sgBasePortalAPI/obj
+sgBasePortalAPI/packages
+
+sgBasePortalAPI.ClientSample/bin
+sgBasePortalAPI.ClientSample/obj
+sgBasePortalAPI.ClientSample/packages
+
