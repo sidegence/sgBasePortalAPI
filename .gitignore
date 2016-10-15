@@ -50,9 +50,9 @@ Temporary Items
 *.dll
 *.pdb
 
-sgBasePortalAPI/bin
-sgBasePortalAPI/obj
-sgBasePortalAPI/packages
+**/bin
+**/obj
+**/packages
 
 sgBasePortalAPI.ClientSample/bin
 sgBasePortalAPI.ClientSample/obj
