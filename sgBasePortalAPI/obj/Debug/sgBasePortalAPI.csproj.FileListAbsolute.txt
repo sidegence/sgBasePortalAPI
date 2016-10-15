@@ -1,0 +1,7 @@
+C:\sgGIT\sgBasePortalAPI\sgBasePortalAPI\bin\Debug\sgBasePortalAPI.dll
+C:\sgGIT\sgBasePortalAPI\sgBasePortalAPI\bin\Debug\sgBasePortalAPI.pdb
+C:\sgGIT\sgBasePortalAPI\sgBasePortalAPI\obj\Debug\sgBasePortalAPI.csprojResolveAssemblyReference.cache
+C:\sgGIT\sgBasePortalAPI\sgBasePortalAPI\obj\Debug\sgBasePortalAPI.dll
+C:\sgGIT\sgBasePortalAPI\sgBasePortalAPI\obj\Debug\sgBasePortalAPI.pdb
+C:\sgGIT\sgBasePortalAPI\sgBasePortalAPI\bin\Debug\Newtonsoft.Json.dll
+C:\sgGIT\sgBasePortalAPI\sgBasePortalAPI\bin\Debug\Newtonsoft.Json.xml
