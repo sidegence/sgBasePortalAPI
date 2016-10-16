@@ -87,13 +87,12 @@ namespace sgBasePortalAPI
         private Announcement BuildGetSingleAnnouncementResponse(string rawJsonData)
         {
             var
-               announcementJson = JsonConvert.DeserializeObject<AnnouncementJson>(rawJsonData);
+               objectFromJson = JsonConvert.DeserializeObject<AnnouncementJson>(rawJsonData);
 
             var
-                announcement = announcementJson
-                    .ToAnnouncement();
+                objectToTypes = objectFromJson.ToBaseObject();
 
-            return announcement;
+            return objectToTypes;
         }
 
         private string BuildGetListAnnouncementsRequest(
@@ -117,14 +116,14 @@ namespace sgBasePortalAPI
         private IEnumerable<Announcement> BuildGetListAnnouncementsResponse(string rawJsonData)
         {
             var
-               announcementJsonList = JsonConvert.DeserializeObject<List<AnnouncementJson>>(rawJsonData);
+               objectsFromJson = JsonConvert.DeserializeObject<List<AnnouncementJson>>(rawJsonData);
 
             var
-                announcementList = announcementJsonList
-                    .Select(_ => _.ToAnnouncement())
+                objectsToTypes = objectsFromJson
+                    .Select(_ => _.ToBaseObject())
                     .ToList();
 
-            return announcementList;
+            return objectsToTypes;
         }
     }
 }

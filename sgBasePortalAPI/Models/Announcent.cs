@@ -98,7 +98,7 @@ namespace sgBasePortalAPI
         public string modelType { get; set; }
         public string contractsCount { get; set; }
 
-        public Announcement ToAnnouncement()
+        public Announcement ToBaseObject()
         {
             return
                 new Announcement()

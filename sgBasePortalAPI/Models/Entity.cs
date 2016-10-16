@@ -12,21 +12,81 @@ using sgBasePortalAPI.Helpers;
 
 namespace sgBasePortalAPI
 {
+    public enum EntitySortColumn
+    {
+        id,
+        country,
+        description,
+        nif,
+    }
+
+    public enum EntityFilterColumn
+    {
+        texto,
+    }
+
     [Serializable]
     public class Entity
     {
         public int id { get; set; }
+        public string country { get; set; }
         public string description { get; set; }
         public string nif { get; set; }
+
+        public string location { get; set; }
+        public float sumTotalContractsGiven { get; set; }
+        public float sumTotalContractsReceived { get; set; }
+        public int totalContractsGiven { get; set; }
+        public int totalContractsReceived { get; set; }
 
         public string ToLongString()
         {
             return
-                string.Format("\"{0}\",\"{1}\",{2}\"",
+                string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
                     id,
+                    country,
                     description,
-                    nif
+                    nif,
+                    location,
+                    sumTotalContractsGiven, 
+                    sumTotalContractsReceived, 
+                    totalContractsGiven, 
+                    totalContractsReceived 
                 );
         }
     }
+
+    [Serializable]
+    internal class EntityJson
+    {
+        public int id { get; set; }
+        public string country { get; set; }
+        public string description { get; set; }
+        public string nif { get; set; }
+
+        public string location { get; set; }
+        public string sumTotalContractsGiven { get; set; }
+        public string sumTotalContractsReceived { get; set; }
+        public string totalContractsGiven { get; set; }
+        public string totalContractsReceived { get; set; }
+
+        public Entity ToBaseObject()
+        {
+            return
+                new Entity()
+                {
+                    id = id,
+                    country = StringHelper.ClearString(country),
+                    description = StringHelper.ClearString(description),
+                    nif = StringHelper.ClearString(nif),
+
+                    location = StringHelper.ClearString(location),
+                    sumTotalContractsGiven = StringHelper.ClearFloat(sumTotalContractsGiven),
+                    sumTotalContractsReceived = StringHelper.ClearFloat(sumTotalContractsReceived),
+                    totalContractsGiven = StringHelper.ClearInt(totalContractsGiven),
+                    totalContractsReceived = StringHelper.ClearInt(totalContractsReceived),
+                };
+        }
+    }
+
 }
