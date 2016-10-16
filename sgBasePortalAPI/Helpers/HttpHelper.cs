@@ -26,7 +26,8 @@ namespace sgBasePortalAPI.Helpers
                 key = "Range",
                 val = string.Format("items={0}-{1}", from, to);
 
-            method.Invoke(httpWebRequest.Headers, new object[] { key, val });
+            if (from >0 && to>0)
+                method.Invoke(httpWebRequest.Headers, new object[] { key, val });
 
             using (WebResponse webResponse = httpWebRequest.GetResponse())
             {

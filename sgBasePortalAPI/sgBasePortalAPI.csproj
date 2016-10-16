@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\SortHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Announcent.cs" />
     <Compile Include="Announcements.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
