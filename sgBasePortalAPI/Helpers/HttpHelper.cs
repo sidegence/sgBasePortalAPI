@@ -11,25 +11,51 @@ namespace sgBasePortalAPI.Helpers
 {
     internal static class HttpHelper
     {
+        private static HttpWebRequest BuildHttpWebRequest(string url, int from, int to)
+        {
+            MethodInfo
+                method = typeof(WebHeaderCollection).GetMethod("AddWithoutValidate", BindingFlags.Instance | BindingFlags.NonPublic);
+
+            HttpWebRequest
+                httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+
+            string
+                key = "Range",
+                val = string.Format("items={0}-{1}", from, to);
+
+            if (from > 0 || to > 0)
+                method.Invoke(httpWebRequest.Headers, new object[] { key, val });
+
+            return
+                httpWebRequest;
+        }
+
         internal static String GetRawJsonData(string url, int from, int to)
         {
             string
                 response = string.Empty;
 
-            MethodInfo
-                method = typeof(WebHeaderCollection).GetMethod("AddWithoutValidate", BindingFlags.Instance | BindingFlags.NonPublic);
+            using (WebResponse webResponse = BuildHttpWebRequest(url, from, to).GetResponse())
+            {
+                using (Stream stream = webResponse.GetResponseStream())
+                {
+                    using (StreamReader streamReader = new StreamReader(stream))
+                    {
+                        response = streamReader.ReadToEnd();
+                    }
+                }
+            }
 
-            HttpWebRequest
-                httpWebRequest = (HttpWebRequest) WebRequest.Create(url);
+            return
+                response;
+        }
 
-            string 
-                key = "Range",
-                val = string.Format("items={0}-{1}", from, to);
+        internal static async Task<string> GetRawJsonDataAsync(string url, int from, int to)
+        {
+            string
+                response = string.Empty;
 
-            if (from >0 && to>0)
-                method.Invoke(httpWebRequest.Headers, new object[] { key, val });
-
-            using (WebResponse webResponse = httpWebRequest.GetResponse())
+            using (WebResponse webResponse = await BuildHttpWebRequest(url, from, to).GetResponseAsync())
             {
                 using (Stream stream = webResponse.GetResponseStream())
                 {

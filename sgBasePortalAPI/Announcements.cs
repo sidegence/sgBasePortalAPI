@@ -11,7 +11,7 @@ namespace sgBasePortalAPI
     public class Announcements
     {
         const string 
-            Url = @"http://www.base.gov.pt/base2/rest/anuncios";
+            BaseUrl = @"http://www.base.gov.pt/base2/rest/anuncios";
 
         public Announcements()
         {
@@ -26,36 +26,66 @@ namespace sgBasePortalAPI
         )
         {
             var
-                url = string.Format("{0}?{1}sort({2}{3})", 
-                    Url,
-                    announcementFilterColumn == null ? "" : string.Join("&", announcementFilterColumn.Select(_ => _.Key +"="+ _.Value)) + "&",
-                    order == Order.Asc ? "+" : "-",
-                    announcementSortColumn.ToString()
-                );
+                url = BuildGetListAnnouncementsRequest(announcementFilterColumn, announcementSortColumn, order);
 
             var
                 rawJsonData = HttpHelper.GetRawJsonData(url, fromResultIndex, toResultIndex);
             
+            return BuildGetListAnnouncementsResponse(rawJsonData);
+        }
+
+        public async Task<IEnumerable<Announcement>> GetAsync(
+            int fromResultIndex,
+            int toResultIndex,
+            List<KeyValuePair<AnnouncementFilterColumn, string>> announcementFilterColumn,
+            AnnouncementSortColumn announcementSortColumn,
+            Order order
+        )
+        {
             var
-               announcementJsonList = JsonConvert.DeserializeObject<List<AnnouncementJson>>(rawJsonData);
+                url = BuildGetListAnnouncementsRequest(announcementFilterColumn, announcementSortColumn, order);
 
-            var 
-                announcementList = announcementJsonList
-                    .Select(_ => _.ToAnnouncement())
-                    .ToList();
+            var
+                rawJsonData = await HttpHelper.GetRawJsonDataAsync(url, fromResultIndex, toResultIndex);
 
-
-            return announcementList;
+            return BuildGetListAnnouncementsResponse(rawJsonData);
         }
 
         public Announcement Get(int id)
         {
             var
-                url = string.Format("{0}/{1}", Url, id);
+                url = BuildGetSingleAnnouncementRequest(id);
 
             var
                 rawJsonData = HttpHelper.GetRawJsonData(url, 0, 0);
 
+            return 
+                BuildGetSingleAnnouncementResponse(rawJsonData);
+        }
+
+        public async Task<Announcement> GetAsync(int id)
+        {
+            var
+                url = BuildGetSingleAnnouncementRequest(id);
+
+            var
+                rawJsonData = await HttpHelper.GetRawJsonDataAsync(url, 0, 0);
+
+            return 
+                BuildGetSingleAnnouncementResponse(rawJsonData);
+        }
+
+        private string BuildGetSingleAnnouncementRequest(int id)
+        {
+            var
+                url = string.Format("{0}/{1}", BaseUrl, id);
+
+            return
+                url;
+        }
+
+        private Announcement BuildGetSingleAnnouncementResponse(string rawJsonData)
+        {
             var
                announcementJson = JsonConvert.DeserializeObject<AnnouncementJson>(rawJsonData);
 
@@ -64,6 +94,37 @@ namespace sgBasePortalAPI
                     .ToAnnouncement();
 
             return announcement;
+        }
+
+        private string BuildGetListAnnouncementsRequest(
+            List<KeyValuePair<AnnouncementFilterColumn, string>> announcementFilterColumn,
+            AnnouncementSortColumn announcementSortColumn,
+            Order order
+        )
+        {
+            var
+                url = string.Format("{0}?{1}sort({2}{3})",
+                    BaseUrl,
+                    announcementFilterColumn == null ? "" : string.Join("&", announcementFilterColumn.Select(_ => _.Key + "=" + _.Value)) + "&",
+                    order == Order.Asc ? "+" : "-",
+                    announcementSortColumn.ToString()
+                );
+
+            return
+                url;
+        }
+
+        private IEnumerable<Announcement> BuildGetListAnnouncementsResponse(string rawJsonData)
+        {
+            var
+               announcementJsonList = JsonConvert.DeserializeObject<List<AnnouncementJson>>(rawJsonData);
+
+            var
+                announcementList = announcementJsonList
+                    .Select(_ => _.ToAnnouncement())
+                    .ToList();
+
+            return announcementList;
         }
     }
 }

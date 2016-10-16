@@ -28,11 +28,28 @@ namespace sgBasePortalAPI.ClientSample
                 new KeyValuePair<AnnouncementFilterColumn, string>(AnnouncementFilterColumn.desdeprecobase, "200000"),
             };
 
-            var announcements = AnnouncementsApi.Get(0, 0, filter, AnnouncementSortColumn.id, Order.Desc);
+            var announcements = AnnouncementsApi.Get(0, 1, filter, AnnouncementSortColumn.id, Order.Desc);
             foreach (var announcement2 in announcements)
             {
                 Console.WriteLine(announcement2.ToLongString());
             }
+
+            Console.WriteLine("Get 1 Async");
+            Task.Run(async () =>
+            {
+                var announcement3 = await AnnouncementsApi.GetAsync(82919);
+                Console.WriteLine(announcement3.ToLongString());
+            }).Wait();
+
+            Console.WriteLine("Get N Async");
+            Task.Run(async () =>
+            {
+                var announcement4 = await AnnouncementsApi.GetAsync(0, 1, null, AnnouncementSortColumn.id, Order.Desc);
+                foreach (var announcement2 in announcements)
+                {
+                    Console.WriteLine(announcement2.ToLongString());
+                }
+            }).Wait();
 
             Console.ReadKey();
         }
