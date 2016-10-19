@@ -16,6 +16,7 @@ namespace sgBasePortalAPI.ClientSample
             var AnnouncementsApi = new Announcements();
 
             Console.WriteLine("Announcements");
+            Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("Get 1");
             var announcement1 = AnnouncementsApi.Get(82919);
             Console.WriteLine(announcement1.ToLongString());
@@ -54,6 +55,7 @@ namespace sgBasePortalAPI.ClientSample
             var EntitiesApi = new Entities();
 
             Console.WriteLine("Entities");
+            Console.WriteLine("---------------------------------------------------------");
             Console.WriteLine("Get 1");
             var item1 = EntitiesApi.Get(12);
             Console.WriteLine(item1.ToLongString());
