@@ -42,17 +42,7 @@ namespace sgBasePortalAPI
         public string ToLongString()
         {
             return
-                string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
-                    id,
-                    country,
-                    description,
-                    nif,
-                    location,
-                    sumTotalContractsGiven, 
-                    sumTotalContractsReceived, 
-                    totalContractsGiven, 
-                    totalContractsReceived 
-                );
+                JsonConvert.SerializeObject(this);
         }
     }
 

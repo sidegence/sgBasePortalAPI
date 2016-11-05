@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using sgBasePortalAPI.Helpers;
+using Newtonsoft.Json;
 
 namespace sgBasePortalAPI
 {
@@ -63,38 +64,7 @@ namespace sgBasePortalAPI
         public string ToLongString()
         {
             return
-                string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29}",
-                    totalEffectivePrice,
-                    publicationDate,
-                    announcementId,
-                    frameworkAgreementProcedureId,
-                    observations,
-                    directAwardFundamentationType,
-                    invitees == null ? 0 : invitees.Count,
-                    contestants == null ? 0 : contestants.Count,
-                    contractFundamentationType,
-                    increments,
-                    closeDate,
-                    causesDeadlineChange,
-                    causesPriceChange,
-                    frameworkAgreementProcedureDescription,
-                    id,
-                    description,
-                    contractingProcedureType,
-                    executionDeadline,
-                    contractTypes,
-                    executionPlace,
-                    cpvs,
-                    objectBriefDescription,
-                    centralizedProcedure,
-                    contractStatus,
-                    initialContractualPrice,
-                    signingDate,
-                    contracted == null ? 0 : contracted.Count,
-                    contracting == null ? 0 : contracting.Count,
-                    contractedForListedSearch,
-                    contractingForListedSearch
-                );
+                JsonConvert.SerializeObject(this);
         }
     }
 
