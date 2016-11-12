@@ -47,7 +47,6 @@ Temporary Items
 .apdisk
 *.exe
 *.cache
-*.dll
 *.pdb
 
 **/bin
@@ -55,5 +54,4 @@ Temporary Items
 **/packages
 
 
-*.suo
 *.suo
